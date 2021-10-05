@@ -19,9 +19,10 @@ namespace Consumer.DependencyInjection.Configuration
 
             services
                 .AddScoped<IPokeApiFactory, PokeApiFactory>()
-                .AddScoped<IPokeApi, PokeApiService>();
+                .AddScoped<IPokeApiService, PokeApiService>();
 
-            var pokeApiUrl = "https://pokeapi.co/api/"; 
+
+            var pokeApiUrl = "https://pokeapi.co/api"; 
 
             services.AddHttpClient(PokeApiConstants.ApiClientName, c => c.BaseAddress = new Uri(pokeApiUrl));
 

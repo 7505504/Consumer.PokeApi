@@ -1,13 +1,12 @@
 ﻿using Consumer.Application.PokeApp.Interfaces;
+using Consumer.Application.Shared;
 using Consumer.Domain.Entities;
-using Refit;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Consumer.Application.PokeApp.Integrations
 {
-    public class PokeApiService : IPokeApi
+    public class PokeApiService : IPokeApiService
     {
         private readonly IPokeApiFactory _pokeApiFactory;
 
@@ -16,15 +15,30 @@ namespace Consumer.Application.PokeApp.Integrations
             _pokeApiFactory = pokeApiFactory;
         }
 
-        public async Task<PokeApiResponse> GetPokemonByName(string pokemonName)
+        //public PokeApiResponse GetPokemonByName(string pokemonName)
+        //{
+        //    if (pokemonName is null) throw new NullReferenceException("O Nome do pokemon não pode ser nulo");
+
+        //var response = AsyncUtil.RunSync(() => CreateApi().GetPokemonByName(pokemonName));
+
+        //    return response;
+        //}
+
+
+        public Task<PokeApiResponse> GetPokemonByNameTest(string pokemonName)
         {
             if (pokemonName is null) throw new NullReferenceException("O Nome do pokemon não pode ser nulo");
 
-            var response = await CreateApi().GetPokemonByName(pokemonName);
+            var response = AsyncUtil.RunSync(() => CreateApi().GetPokemonByName(pokemonName));
 
-            return response;
+            return Task.FromResult(new PokeApiResponse
+            {
+                Id = response.Id,
+                Name = response.Name
+            });
         }
 
         private IPokeApi CreateApi() => _pokeApiFactory.CreateApi();
+
     }
 }

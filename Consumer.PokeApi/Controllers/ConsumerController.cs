@@ -1,11 +1,8 @@
-﻿using Consumer.Application.PokeApp.Interfaces;
+﻿using Consumer.Application.PokeApp.Integrations;
+using Consumer.Application.PokeApp.Interfaces;
+using Consumer.Application.Shared;
+using Consumer.PokeApi.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Consumer.PokeApi.Controllers
 {
@@ -13,20 +10,25 @@ namespace Consumer.PokeApi.Controllers
     [Route("[controller]")]
     public class ConsumerController : ControllerBase
     {
-        private readonly IPokeApi _pokeApi;
+        private readonly IPokeApiService _pokeApiService;
 
-        public ConsumerController(IPokeApi pokeApi)
+        public ConsumerController(IPokeApiService pokeApiService)
         {
-            _pokeApi = pokeApi;
+            _pokeApiService = pokeApiService;
         }
 
         [HttpGet]
         [Route("pokemon/{name}")]
-        public Task GetPokemonByName(string name)
+        public ConsumerResponse GetPokemonByName(string name)
         {
-            var result =  _pokeApi.GetPokemonByName(name);
-            
-            return Task.FromResult(JsonConvert.SerializeObject(result));
+
+            var response = _pokeApiService.GetPokemonByNameTest(name);
+
+            return new ConsumerResponse()
+            {
+                Id = response.Result.Id,
+                Name = response.Result.Name
+            };
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Consumer.Application.PokeApp.Integrations
             return RestService.For<IPokeApi>(httpClient);
         }
 
-        public HttpClient CreateHttpClientForApi() => _httpClientFactory.CreateClient(PokeApiConstants.ApiClientName);
+        public HttpClient CreateHttpClientForApi() => 
+            _httpClientFactory.CreateClient(PokeApiConstants.ApiClientName);
     }
 }

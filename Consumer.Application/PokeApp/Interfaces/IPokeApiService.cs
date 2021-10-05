@@ -1,5 +1,4 @@
 ﻿using Consumer.Domain.Entities;
-using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Consumer.Application.PokeApp.Interfaces
 {
-    public interface IPokeApi
+    public interface IPokeApiService
     {
-        [Get("/v2/pokemon/{pokemonName}")]
-        Task<PokeApiResponse> GetPokemonByName(string pokemonName);
+        Task<PokeApiResponse> GetPokemonByNameTest(string pokemonName);
     }
 }
