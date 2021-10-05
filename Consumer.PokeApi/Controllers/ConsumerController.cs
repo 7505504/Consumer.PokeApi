@@ -3,6 +3,7 @@ using Consumer.Application.PokeApp.Interfaces;
 using Consumer.Application.Shared;
 using Consumer.PokeApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Consumer.PokeApi.Controllers
 {
@@ -24,10 +25,19 @@ namespace Consumer.PokeApi.Controllers
 
             var response = _pokeApiService.GetPokemonByNameTest(name);
 
+            ConsumerResponse consumerResponse = null;
+
+            foreach (var type in response.Result.Types)
+            {
+                consumerResponse.Types.AddRange((IEnumerable<TypesResult>)response.Result.Types);
+            }
+
             return new ConsumerResponse()
             {
                 Id = response.Result.Id,
-                Name = response.Result.Name
+                Name = response.Result.Name,
+                Types = consumerResponse.Types
+
             };
         }
     }

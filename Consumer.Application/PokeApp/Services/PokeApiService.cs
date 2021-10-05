@@ -15,16 +15,6 @@ namespace Consumer.Application.PokeApp.Integrations
             _pokeApiFactory = pokeApiFactory;
         }
 
-        //public PokeApiResponse GetPokemonByName(string pokemonName)
-        //{
-        //    if (pokemonName is null) throw new NullReferenceException("O Nome do pokemon não pode ser nulo");
-
-        //var response = AsyncUtil.RunSync(() => CreateApi().GetPokemonByName(pokemonName));
-
-        //    return response;
-        //}
-
-
         public Task<PokeApiResponse> GetPokemonByNameTest(string pokemonName)
         {
             if (pokemonName is null) throw new NullReferenceException("O Nome do pokemon não pode ser nulo");
@@ -34,7 +24,8 @@ namespace Consumer.Application.PokeApp.Integrations
             return Task.FromResult(new PokeApiResponse
             {
                 Id = response.Id,
-                Name = response.Name
+                Name = response.Name,
+                Types = response.Types
             });
         }
 

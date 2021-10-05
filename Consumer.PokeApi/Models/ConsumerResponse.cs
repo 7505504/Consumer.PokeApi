@@ -20,5 +20,19 @@ namespace Consumer.PokeApi.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public List<TypesResult> Types { get; set; }
+    }
+    public class TypesResult
+    {
+        public int Slot { get; set; }
+
+        public Type Type { get; set; }
+    }
+
+    public class Type
+    {
+        public string Name { get; set; }
+
     }
 }
