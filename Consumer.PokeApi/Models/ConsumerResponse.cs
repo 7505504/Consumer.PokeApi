@@ -25,13 +25,25 @@ namespace Consumer.PokeApi.Models
     }
     public class TypesResult
     {
+
+        public TypesResult(int slot, TypeResult type)
+        {
+            Slot = slot;
+            Type = type;
+        }
+
         public int Slot { get; set; }
 
-        public Type Type { get; set; }
+        public TypeResult Type { get; set; }
     }
 
-    public class Type
+    public class TypeResult
     {
+        public TypeResult(string name)
+        {
+            Name = name;
+        }
+
         public string Name { get; set; }
 
     }
