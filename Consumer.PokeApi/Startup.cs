@@ -43,7 +43,7 @@ namespace Consumer.PokeApi
             app.UseWatchDog(opt =>
             {
                 opt.WatchPageUsername = "ash";
-                opt.WatchPagePassword = "lug12345";
+                opt.WatchPagePassword = "pikachu";
             });
             app.UseHttpsRedirection();
 
