@@ -1,17 +1,11 @@
 using Consumer.DependencyInjection.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WatchDog;
 
 namespace Consumer.PokeApi
 {
@@ -30,6 +24,7 @@ namespace Consumer.PokeApi
 
             services.AddControllers();
             services.AddPokeApiConfiguration();
+            services.AddWatchDogServices();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Consumer.PokeApi", Version = "v1" });
@@ -45,12 +40,18 @@ namespace Consumer.PokeApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Consumer.PokeApi v1"));
             }
-
+            app.UseWatchDog(opt =>
+            {
+                opt.WatchPageUsername = "ash";
+                opt.WatchPagePassword = "lug12345";
+            });
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseWatchDogExceptionLogger();
 
             app.UseEndpoints(endpoints =>
             {

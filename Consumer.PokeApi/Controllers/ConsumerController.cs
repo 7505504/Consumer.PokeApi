@@ -6,6 +6,7 @@ using Consumer.PokeApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using WatchDog;
 
 namespace Consumer.PokeApi.Controllers
 {
@@ -47,6 +48,8 @@ namespace Consumer.PokeApi.Controllers
                     );
 
             }
+
+            WatchLogger.Log(response.ToString());
 
             return consumerResponse;
 
