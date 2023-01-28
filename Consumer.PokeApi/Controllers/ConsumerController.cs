@@ -1,11 +1,9 @@
-﻿using Consumer.Application.PokeApp.Integrations;
-using Consumer.Application.PokeApp.Interfaces;
-using Consumer.Application.Shared;
+﻿using Consumer.Application.PokeApp.Interfaces;
 using Consumer.Domain.Entities;
+using Consumer.Infrastructure.Handlers;
 using Consumer.PokeApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using WatchDog;
 
 namespace Consumer.PokeApi.Controllers
@@ -22,6 +20,7 @@ namespace Consumer.PokeApi.Controllers
             _pokeApiService = pokeApiService;
         }
 
+        [ApiKey]
         [HttpGet]
         [Route("pokemon/{name}")]
         public ConsumerResponse GetPokemonByName(string name)
@@ -37,11 +36,11 @@ namespace Consumer.PokeApi.Controllers
                 Types = new List<TypesResult>()
             };
 
-            foreach(var type in result)
+            foreach (var type in result)
             {
                 consumerResponse.Types.Add(
                     new TypesResult(
-                        type.Slot, 
+                        type.Slot,
                         new TypeResult(
                             type.Type.Name)
                         )

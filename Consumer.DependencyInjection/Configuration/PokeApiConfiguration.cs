@@ -1,13 +1,10 @@
 ﻿using Consumer.Application.PokeApp.Integrations;
 using Consumer.Application.PokeApp.Interfaces;
 using Consumer.Domain.Constants;
+using Consumer.Infrastructure.Handlers;
+using Consumer.Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Consumer.DependencyInjection.Configuration
 {
@@ -21,8 +18,10 @@ namespace Consumer.DependencyInjection.Configuration
                 .AddScoped<IPokeApiFactory, PokeApiFactory>()
                 .AddScoped<IPokeApiService, PokeApiService>();
 
-
-            var pokeApiUrl = "https://pokeapi.co/api"; 
+            services.AddSingleton<ApiKeyAuthorizationFilter>();
+            services.AddSingleton<IApiKeyValidator, ApiKeyValidator>();
+            
+            var pokeApiUrl = "https://pokeapi.co/api";
 
             services.AddHttpClient(PokeApiConstants.ApiClientName, c => c.BaseAddress = new Uri(pokeApiUrl));
 

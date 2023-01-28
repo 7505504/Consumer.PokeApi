@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+	  <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Consumer.Application\Consumer.Application.csproj" />
+    <ProjectReference Include="..\Consumer.Infrastructure\Consumer.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
